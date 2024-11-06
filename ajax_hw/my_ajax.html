@@ -1,52 +1,123 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>OSS과제 4-2_22000078_김민준</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  </head>
-  <body>
-    <style>
-      .td_title{
-        cursor: pointer;
-      }
-      
-      .td_title:hover{
-        font-size: 1.05em;
-        font-weight: 600;
-      }
-    </style>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OSS과제 4-2_22000078_김민준</title>
+  <link rel="stylesheet" href="main.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div>
+      도서관리
+    </div>
+    <div style="text-align: right;padding:5px 0px;">
+      <a class="btn btn-secondary" onclick="getData()">가져오기</a>
+      <a href="./edit_server.html" class="btn btn-warning" id="editBtn">수정</a>
+      <a href="javascript:confirm('삭제하시겠습니까?')" class="btn btn-warning"  id="deleteBtn" onclick="deleteButtonClicked()">삭제</a>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBookModal">추가</button>
+    </div>
 
-      <div class="container">
-        <div>
-          도서관리
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">도서명</th>
+          <th scope="col">저자</th>
+          <th scope="col">출판사</th>
+          <th scope="col">출판년도</th>
+        </tr>
+      </thead>
+      <tbody id="bookTable">
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add Book Modal -->
+  <div class="modal fade" id="addBookModal" tabindex="-1" aria-labelledby="addBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addBookModalLabel">도서 추가</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div style="text-align: right;padding:5px 0px;">
-          <a  class="btn btn-secondary" onclick="getData()">가져오기 </a>
+        <div class="modal-body">
+          <!-- Add form content here -->
+          <form id="addBookForm">
+            <div class="mb-3">
+              <label for="create_book_number" class="form-label">번호</label>
+              <input type="text" class="form-control" id="create_book_number">
+            </div>
+            <div class="mb-3">
+              <label for="create_book_title" class="form-label">도서명</label>
+              <input type="text" class="form-control" id="create_book_title">
+            </div>
+            <div class="mb-3">
+              <label for="create_book_author" class="form-label">저자</label>
+              <input type="text" class="form-control" id="create_book_author">
+            </div>
+            <div class="mb-3">
+              <label for="create_book_pub" class="form-label">출판사</label>
+              <input type="text" class="form-control" id="create_book_pub">
+            </div>
+            <div class="mb-3">
+              <label for="create_book_year" class="form-label">출판년도</label>
+              <input type="text" class="form-control" id="create_book_year">
+            </div>
+          </form>
         </div>
-
-
-        <div style="text-align: right;padding:5px 0px;">
-          <a href="./add_server.html" class="btn btn-primary">추가</a>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+          <button type="button" class="btn btn-primary" onclick="postData()">추가하기</button>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">도서명</th>
-              <th scope="col">저자</th>
-              <th scope="col">출판사</th>
-              <th scope="col">출판년도</th>
-            </tr>
-          </thead>
-          <tbody id="bookTable">
-          </tbody>
-        </table>
+  <!-- Edit Book Modal (Add this modal with a similar structure) -->
+  <div class="modal fade" id="editBookModal" tabindex="-1" aria-labelledby="editBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editBookModalLabel">도서 수정</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Edit form content here -->
+          <form id="editBookForm">
+            <div class="mb-3">
+              <label for="edit_book_number" class="form-label">번호</label>
+              <input type="text" class="form-control" id="edit_book_number">
+            </div>
+            <div class="mb-3">
+              <label for="edit_book_title" class="form-label">도서명</label>
+              <input type="text" class="form-control" id="edit_book_title">
+            </div>
+            <div class="mb-3">
+              <label for="edit_book_author" class="form-label">저자</label>
+              <input type="text" class="form-control" id="edit_book_author">
+            </div>
+            <div class="mb-3">
+              <label for="edit_book_pub" class="form-label">출판사</label>
+              <input type="text" class="form-control" id="edit_book_pub">
+            </div>
+            <div class="mb-3">
+              <label for="edit_book_year" class="form-label">출판년도</label>
+              <input type="text" class="form-control" id="edit_book_year">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+          <button type="button" class="btn btn-primary" onclick="updateData(selectedBookId)">수정하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="logic.js"></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="logic.js"></script>
+</body>
 </html>

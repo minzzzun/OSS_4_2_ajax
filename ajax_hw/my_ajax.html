@@ -14,8 +14,10 @@
     </div>
     <div style="text-align: right;padding:5px 0px;">
       <a class="btn btn-secondary" onclick="getData()">가져오기</a>
-      <a href="./edit_server.html" class="btn btn-warning" id="editBtn">수정</a>
-      <a href="javascript:confirm('삭제하시겠습니까?')" class="btn btn-warning"  id="deleteBtn" onclick="deleteButtonClicked()">삭제</a>
+      <!-- <a href="./edit_server.html" class="btn btn-warning" id="editBtn">수정</a>
+      <a href="javascript:confirm('삭제하시겠습니까?')" class="btn btn-warning"  id="deleteBtn" onclick="deleteButtonClicked()">삭제</a> -->
+      <button class="btn btn-warning" id="editBtn" onclick="updateData()">수정</button>
+      <button class="btn btn-danger" id="deleteBtn" onclick="deleteData()">삭제</button>
       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBookModal">추가</button>
     </div>
 

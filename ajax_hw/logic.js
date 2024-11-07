@@ -57,7 +57,7 @@ function postData() {
   xhr.onload = function () {
     if (xhr.status === 201) {
         alert("도서가 성공적으로 추가되었습니다!");
-        window.location.href = "./my_ajax.html";
+        window.location.href = "./index.html";
     } else {
         alert("도서 추가에 실패했습니다. 상태: " + xhr.status);
     }

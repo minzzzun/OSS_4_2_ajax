@@ -1,7 +1,7 @@
 
 function getData() {
   const xhr = new XMLHttpRequest();
-  xhr.open("GET", "https://672af8d4976a834dd025108e.mockapi.io/book");
+  xhr.open("GET", "https://672cc4affd89797156401d7c.mockapi.io/book");
   xhr.setRequestHeader("content-type", "application/json");
   xhr.send();
 
@@ -37,7 +37,7 @@ function getData() {
 
 function postData() {
   const xhr = new XMLHttpRequest();
-  xhr.open("POST", "https://672af8d4976a834dd025108e.mockapi.io/book");
+  xhr.open("POST", "https://672cc4affd89797156401d7c.mockapi.io/book");
   xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
 
   let count = $("#create_book_number").val();
@@ -71,12 +71,12 @@ function postData() {
 }
 
 
-// 도서 수정하기
+
 function updateData() {
-  const id = $("#edit_book_id").val();  // 수정할 도서의 ID 가져오기
+  const id = $("#edit_book_id").val(); 
   const xhr = new XMLHttpRequest();
 
-  xhr.open("PUT", "https://672af8d4976a834dd025108e.mockapi.io/book/"+ id);
+  xhr.open("PUT", "https://672cc4affd89797156401d7c.mockapi.io/book/"+ id);
   xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
 
   // 수정할 도서 정보
@@ -91,8 +91,8 @@ function updateData() {
   xhr.onload = function () {
     if (xhr.status === 200) {
       alert("도서가 성공적으로 수정되었습니다!");
-      getData(); // 수정 후 목록 새로고침
-      $('#editBookModal').modal('hide'); // 수정 모달 닫기
+      getData(); 
+      $('#editBookModal').modal('hide'); 
     } else {
       alert("도서 수정에 실패했습니다. 상태: " + xhr.status);
     }
@@ -105,20 +105,20 @@ function updateData() {
   xhr.send(JSON.stringify(updatedBook));
 }
 
-// 도서 삭제하기
+
 function deleteData() {
-  const id = $("#delete_book_id").val(); // 삭제할 도서의 ID 가져오기
+  const id = $("#delete_book_id").val(); 
 
   const xhr = new XMLHttpRequest();
 
-  xhr.open("DELETE", "https://672af8d4976a834dd025108e.mockapi.io/book/"+ id);
+  xhr.open("DELETE", "https://672cc4affd89797156401d7c.mockapi.io/book/"+ id);
   xhr.setRequestHeader("content-type", "application/json");
 
   xhr.onload = function () {
     if (xhr.status === 200) {
       alert("도서가 성공적으로 삭제되었습니다!");
-      getData(); // 삭제 후 목록 새로고침
-      $('#deleteBookModal').modal('hide'); // 삭제 모달 닫기
+      getData();
+      $('#deleteBookModal').modal('hide'); 
     } else {
       alert("도서 삭제에 실패했습니다. 상태: " + xhr.status);
     }

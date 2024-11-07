@@ -73,10 +73,10 @@ function postData() {
 
 // 도서 수정하기
 function updateData() {
-  let bookId = $("#edit_book_id").val();  // 수정할 도서의 ID 가져오기
+  const id = $("#edit_book_id").val();  // 수정할 도서의 ID 가져오기
   const xhr = new XMLHttpRequest();
-  // bookId = String (bookId);
-  xhr.open("PUT", `https://672af8d4976a834dd025108e.mockapi.io/book/${bookId}`);
+
+  xhr.open("PUT", "https://672af8d4976a834dd025108e.mockapi.io/book/"+ id);
   xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
 
   // 수정할 도서 정보
@@ -107,11 +107,11 @@ function updateData() {
 
 // 도서 삭제하기
 function deleteData() {
-  let bookId = $("#delete_book_id").val(); // 삭제할 도서의 ID 가져오기
-  // bookId = String(bookId);
+  const id = $("#delete_book_id").val(); // 삭제할 도서의 ID 가져오기
 
   const xhr = new XMLHttpRequest();
-  xhr.open("DELETE", `https://672af8d4976a834dd025108e.mockapi.io/book?id=${bookId}`);
+
+  xhr.open("DELETE", "https://672af8d4976a834dd025108e.mockapi.io/book/"+ id);
   xhr.setRequestHeader("content-type", "application/json");
 
   xhr.onload = function () {
